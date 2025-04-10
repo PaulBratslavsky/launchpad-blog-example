@@ -39,7 +39,7 @@
     "uuid": "LAUNCHPAD-LOCAL-4e4364c3-6d25-4ce1-9476-3ce008953268"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
+    "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
