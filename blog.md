@@ -126,7 +126,7 @@ Nice, not that we have our application working locally. Let's now take a look at
 
 ### Prerequisites
 
-- Your code pushed to GitHub
+- Your code pushed to your own GitHub repository
 - Created a [Strapi Cloud](https://strapi.io/cloud) account ( you can sign up via GitHub )
 - Have a [Vercel](https://vercel.com) account
 
@@ -312,5 +312,155 @@ Nice, now that our Strapi Project is deployed to Strapi Cloud, let's deploy our 
 
 ### Deploying to Vercel
 
-First, let's navigate to the Vercel dashboard and click on the **New** button.
+If you don't have a Vercel account, let's go and create one.
+
+Navigate to the following [link here](https://vercel.com) and click the "Sign Up" button to get started.
+
+![Vercel New](./img/023-vercel-new.png)
+
+Once you have a Vercel account, let's navigate to the Vercel dashboard and click on the **Add New** button and select **Project** 
+
+![Vercel New](./img/024-vercel-new.png)
+
+Now let's connect our GitHub repository and select our project repository.
+
+![Vercel GitHub](./img/025-vercel-github.png)
+
+I am going to select my repo that I am using for this blog post. But you should select the repo that you want to deploy.
+
+![Vercel GitHub](./img/026-vercel-github.png)
+
+Now let's click **Edit** button to edit the project root directory.
+
+![Vercel GitHub](./img/027-vercel-github.png)
+
+Select the `next` folder as the project root directory and click on the **Continue** button. Since this is where our Next.js project is located.
+
+![Vercel GitHub](./img/028-vercel-github.png)
+
+We now have to add our environment variables. 
+
+![Vercel GitHub](./img/029-vercel-github.png)
+
+We will add the following environment variables:
+
+- `NEXT_PUBLIC_API_URL`: the URL of your Strapi Cloud instance
+- `IMAGE_HOSTNAME`: the URL of your Strapi Cloud Media Storage
+- `PREVIEW_SECRET`: the key for the preview secret
+
+**NEXT_PUBLIC_API_URL**
+This is the URL of your Strapi Cloud instance. In my case it is `https://automatic-flower-694eb86c17.strapiapp.com`.
+
+You can find it in your Strapi Cloud project dashboard.
+
+![Strapi Cloud Project Dashboard](./img/030-strapi-cloud-project-dashboard.png)
+
+Note: when copy the link, you can remove the `/admin` at the end of the URL.
+
+**IMAGE_HOSTNAME**
+The easiest way to get the `IMAGE_HOSTNAME` is inside your Strapi Cloud project in the **Media Library** section. Select any image and click on the **Copy URL** button.
+
+![Strapi Cloud Media Library](./img/031-strapi-cloud-media-library.png)
+
+You will get a URL like this:
+
+```
+https://automatic-flower-694eb86c17.media.strapiapp.com/A_natural_setting_where_a_team_of_professionals_is_launching_a_marketing_campaign_The_scene_shows_a_modern_office_with_large_windows_overlooking_a_ci_165bacb7dd.webp
+```
+
+In this case, the `IMAGE_HOSTNAME` is `automatic-flower-694eb86c17.media.strapiapp.com`.
+
+The naming convention for the `IMAGE_HOSTNAME` is `{your-project-name}.media.strapiapp.com`.
+
+
+**PREVIEW_SECRET**
+For the `PREVIEW_SECRET`, you can use any random string. I will use `preview-secret`.
+
+Just make sure to use the same secret key in both the Next.js frontend and the Strapi backend.
+
+Which we will update in the next steps.
+
+Now let's click on the **Deploy** button.
+
+![Vercel GitHub](./img/032-vercel-github-deploy.png)
+
+Once the deployment is complete, you should see the following screen:
+
+![Vercel GitHub](./img/034-vercel-github-deploy.png)
+
+You can click on **Continue to Dashboard** to go to your Vercel dashboard.
+
+![Vercel GitHub](./img/035-vercel-github-deploy-dashboard.png)
+
+You can click on the **Visit** to navigate to your website.
+
+![Vercel GitHub](./img/036-vercel-github-deploy-visit.png)
+
+Nice. Now that we have our Next.js frontend deployed to Vercel, let's update our Strapi Cloud project with the correct environment variables to enable the preview functionality.
+
+### Enable Preview Functionality in Strapi Cloud Production
+
+If we navigate to our Strapi Cloud project, select and **Article** content type and click on the **Preview** button, we will get the following error:
+
+![Strapi Cloud Preview Error](./img/037-strapi-cloud-preview-error.png)
+
+This is because we don't have the correct environment variables set in our Strapi Cloud project.
+
+Let's navigate to the **Settings** => **Variables** section and click on the **Add Variable** button.
+
+![Strapi Cloud Variables](./img/038-strapi-cloud-variables.png)
+
+![Strapi Cloud Add Variable](./img/039-strapi-cloud-add-variable.png)
+
+
+We will add the following variables:
+
+- `STRAPI_ADMIN_CLIENT_URL`: the URL of your Vercel Next.js frontend  
+- `STRAPI_ADMIN_CLIENT_PREVIEW_SECRET`: the key for the preview secret
+- `CLIENT_URL`: the URL of your Vercel Next.js frontend
+- `PREVIEW_SECRET`: this is optional, required with Next.js draft mode (not something we are using in this example)
+
+**STRAPI_ADMIN_CLIENT_URL** and **CLIENT_URL**
+These are the URLs of your Vercel Next.js frontend. In my case it is `https://launchpad-blog-example.vercel.app`.
+
+**STRAPI_ADMIN_CLIENT_PREVIEW_SECRET**
+This is the key for the preview secret. I will use `preview-secret`.
+
+Once you add the required variables, go ahead and click on the **Save** button.
+
+![Strapi Cloud Save Variables](./img/040-strapi-cloud-save-variables.png)
+
+Finally, in our project dashboard we need to click on the **Trigger deployment** button to apply the changes.
+
+![Strapi Cloud Trigger Deployment](./img/041-strapi-cloud-trigger-deployment.png)
+
+Now let's navigate to our Strapi Cloud project, select and **Article** content type and click on the **Preview** button and should see that the preview functionality is working.
+
+![Strapi Cloud Preview](./img/042-strapi-cloud-preview.gif)
+
+Nice. We have successfully deployed Strapi and Next.js Launchpad project.
+
+## Conclusion
+
+We covered how to explore the Launchpad demo, set up the project on your local machine, configure preview functionality, and deploy both the Strapi backend to Strapi Cloud and the Next.js frontend to Vercel.
+
+I hope you enjoyed this tutorial and if you have any questions, please feel free to reach out to me.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
